@@ -1,6 +1,7 @@
 <?php
-require('../controller/ControllerAdministrateur.php');
-require('../controller/ControllerClient.php');
+require_once('../controller/ControllerAdministrateur.php');
+require_once('../controller/ControllerClient.php');
+require_once('../controller/ControllerLogin.php');
 $query_string = $_SERVER['QUERY_STRING'];
 
 parse_str($query_string, $param);
@@ -24,7 +25,12 @@ switch($action)
     case "ListeResidences" :
         ControllerAdministrateur::$action($args);
         break;
-
+    case "Connexion" :
+    case "Connected" :
+    case "Disconnect" :
+    case "SignUp" :
+        ControllerLogin::$action($args);
+        break;
     default :
     $action = "BanqueAccueil";
     ControllerAdministrateur::$action($args);

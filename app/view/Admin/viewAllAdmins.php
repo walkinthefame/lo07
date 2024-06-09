@@ -32,5 +32,5 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
   </div>
 
   <?php include $root . '/app/view/fragment/fragmentPatrimoineFooter.html'; ?>
-
+ 
   <!-- ----- fin viewAll --> 
