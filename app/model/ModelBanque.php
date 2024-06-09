@@ -28,7 +28,7 @@ class ModelBanque{
     }
     function getPays(){
         return $this->pays;
-    }
+    } 
     public static function getAllBanques(){
         try{
         $database = Model::getInstance();

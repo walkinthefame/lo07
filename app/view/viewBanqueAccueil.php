@@ -6,6 +6,6 @@
     ?>
     </div>
     <?php
-    include 'fragment/fragmentPatroimoineFooter.html';
+    include 'fragment/fragmentPatrimoineFooter.html';
     ?>
 </body>

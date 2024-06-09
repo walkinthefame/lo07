@@ -18,8 +18,8 @@ switch($action)
     case "addedBanque":
     case "SelectCompteBanque":
     case "DisplaySelectCompteBanque":
-    case "ListeClients":
-    case "ListeAdmins" :
+    case "getAllAdmins" :
+    case "getAllComptes" :
     case "addClient":
     case "ListeResidences" :
         ControllerAdministrateur::$action($args);

@@ -4,16 +4,16 @@ class ModelPersonne{
 public const ADMINISTRATEUR =0;
 public const CLIENT =1;
 
-private $id, $nom, $prenom, $statut, $login, $mdp;	
+private $id, $nom, $prenom, $statut, $login, $password;	
 
-public function __construct($id = NULL, $nom = NULL, $prenom = NULL, $statut = NULL, $login = NULL, $mdp = NULL){
+public function __construct($id = NULL, $nom = NULL, $prenom = NULL, $statut = NULL, $login = NULL, $password = NULL){
     if(!is_null($id)){
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->statut = $statut;
         $this->login = $login;
-        $this->mdp = $mdp;
+        $this->password = $password;
     }
 }
 function setId($id){
@@ -31,8 +31,8 @@ function setStatut($statut){
 function setLogin($login){
     $this->login = $login;
 }
-function setMdp($mdp){
-    $this->mdp = $mdp;
+function setMdp($password){
+    $this->password = $password;
 }
 function getId(){
     return $this->id;
@@ -49,9 +49,9 @@ function getStatut(){
 function getLogin(){
     return $this->login;
 }
-function getMdp(){
-    return $this->mdp;
-}
+function getPassword(){
+    return $this->password;
+} 
 
 
 public static function getAllClients(){

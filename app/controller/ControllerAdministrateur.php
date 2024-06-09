@@ -1,6 +1,7 @@
 <?php
 require_once('../model/ModelBanque.php');
 require_once('../model/ModelPersonne.php');
+require_once('../model/ModelCompte.php');
 
 class ControllerAdministrateur
 {
@@ -70,16 +71,7 @@ class ControllerAdministrateur
         require ($vue);
     }
 
-    public static function ListeClients()
-    {
-        $clients = ModelPersonne::getAllClients();
-        include 'config.php';
-        $vue = $root . '/app/view/Admin/ListeClients.php';
-        if (DEBUG) echo ("ControllerAdministrateur : ListeClients : vue = $vue");
-        require ($vue);
-    }
-
-    public static function ListeAdmins()
+    public static function getAllAdmins()
     {
         $admins = ModelPersonne::getAllAdmins();
         include 'config.php';
@@ -88,11 +80,11 @@ class ControllerAdministrateur
         require ($vue);
     }
 
-    public static function ListeComptes()
+    public static function getAllComptes()
     {
         $comptes = ModelCompte::getAllComptes();
         include 'config.php';
-        $vue = $root . '/app/view/Admin/ListeComptes.php';
+        $vue = $root . '/app/view/Admin/viewAllComptes.php';
         if (DEBUG) echo ("ControllerAdministrateur : ListeComptes : vue = $vue");
         require ($vue);
     }
