@@ -4,8 +4,8 @@
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Banques</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="router2.php?action=getAllBanques">Liste des banques</a></li>
-            <li><a class="dropdown-item" href="router2.php?action=vinReadId&target=addBanque">Ajout d'une banque</a></li>
-            <li><a class="dropdown-item" href="router2.php?action=vinReadId&target=SelectCompteBanque">Liste des comptes d'une banque</a></li>
+            <li><a class="dropdown-item" href="router2.php?action=addBanque&target=addedBanque">Ajout d'une banque</a></li>
+            <li><a class="dropdown-item" href="router2.php?action=SelectCompteBanque&target=DisplaySelectCompteBanque">Liste des comptes d'une banque</a></li>
           </ul>
         </li>
 

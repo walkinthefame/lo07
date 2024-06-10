@@ -1,5 +1,7 @@
 <?php
 require_once('Model.php');
+require_once('ModelBanque.php');
+require_once('ModelPersonne.php');
 
 class ModelCompte
 {
@@ -43,19 +45,34 @@ class ModelCompte
     function getUser_id() {
         return $this->user_id;
     }
-    public static function getAllComptes() {
+    
+    public static function getComptes($label) {
         try {
             $database = Model::getInstance();
-            $query = "SELECT * FROM compte";
+            $id = ModelBanque::getBanqueIDByLabel($label);
+            $query = "SELECT * FROM compte where banque_id = :id";
             $statement = $database->prepare($query);
-            $statement->execute();
+            $statement->execute(
+                ['id' => $id]
+            );
             $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelCompte");
-            return $results;
+            $results2 = [];
+            foreach($results as $element){
+                $results2 = $element->getUser_id();
+            }
+            $inQuery = implode(',', array_fill(0, count($results2), '?')); // Crée une chaîne de placeholders
+            $query2 = "SELECT nom, prenom FROM personne WHERE id IN ($inQuery)";
+            $statement2 = $database->prepare($query2);
+            $statement2->execute($results2); // Passez les IDs comme tableau
+            $resultats_personnes = $statement2->fetchAll(PDO::FETCH_CLASS, "ModelPersonne");
+            return array($resultats_personnes, $results);
         } catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
             return NULL;
         }
     }
+
+
     
 }
 ?>

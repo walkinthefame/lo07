@@ -114,8 +114,25 @@ public static function getAllResidence()
         printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
         return NULL;
 }
+}
+
+public static function getInfosByID($id)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT * FROM personne where id = :id";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'id' => $id
+    ]);
+    $results = $statement -> fetchAll(PDO::FETCH_CLASS, "ModelPersonne");
+    return $results;
+    }
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+}
 
 }
 }
-
 ?>

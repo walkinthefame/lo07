@@ -59,11 +59,11 @@ class ModelBanque{
                 'label' => $label,
                 'pays' => $pays
             ]);
-            return true;
+            return 1;
         }
         catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
-            return false;
+            return NULL;
         }
     }
 
@@ -84,6 +84,44 @@ class ModelBanque{
             return NULL;
         }
     }
+
+    public static function getBanqueIDByLabel($label)
+    {
+        try{
+            $database = Model::getInstance();
+            $query = "SELECT id FROM banque WHERE label = :label";
+            $statement = $database->prepare($query);
+            $statement->execute([
+                'label' => $label
+            ]);
+            $results = $statement -> fetchAll(PDO::FETCH_COLUMN, 0);
+            return $results[0];
+        }
+        catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
+    public static function getBanqueByID($id)
+    {
+        try{
+            $database = Model::getInstance();
+            $query = "SELECT * FROM banque WHERE id = :id";
+            $statement = $database->prepare($query);
+            $statement->execute([
+                'id' => $id
+            ]);
+            $results = $statement -> fetchAll(PDO::FETCH_CLASS, "ModelBanque");
+            return $results;
+        }
+        catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
+
 
 
 }

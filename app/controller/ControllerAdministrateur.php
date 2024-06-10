@@ -33,10 +33,8 @@ class ControllerAdministrateur
 
     public static function addBanque()
     {
-        $banques = ModelBanque::getAllBanques();
         include 'config.php';
         $vue = $root . '/app/view/Admin/viewAddBanque.php';
-        if (DEBUG) echo ("ControllerAdministrateur : addBanque : vue = $vue");
         require ($vue);
     }
 
@@ -44,10 +42,10 @@ class ControllerAdministrateur
     {
         $label = $_GET['label'];
         $pays = $_GET['pays'];
-        ModelBanque::AddBanque($label, $pays);
+        $results = ModelBanque::AddBanque($label, $pays);
+
         include 'config.php';
         $vue = $root . '/app/view/Admin/viewAddedBanque.php';
-        if (DEBUG) echo ("ControllerAdministrateur : addedBanque : vue = $vue");
         require ($vue);
     }
 
@@ -55,7 +53,7 @@ class ControllerAdministrateur
     {
         $banques = ModelBanque::getAllBanques();
         include 'config.php';
-        $vue = $root . '/app/view/Admin/SelectCompteBanque.php';
+        $vue = $root . '/app/view/Admin/viewSelectCompteBanque.php';
         if (DEBUG) echo ("ControllerAdministrateur : SelectCompteBanque : vue = $vue");
         require ($vue);
     }
@@ -64,9 +62,12 @@ class ControllerAdministrateur
     //in progress =>
     public static function DisplaySelectCompteBanque()
     {
-        $banques = ModelBanque::getAllBanques();
+        $label = $_GET['label'];
+        $results = ModelCompte::getComptes($label);
+        $clients = $results[0];
+        $comptes = $results[1];
         include 'config.php';
-        $vue = $root . '/app/view/Admin/SelectCompteBanque.php';
+        $vue = $root . '/app/view/Admin/viewDisplaySelectCompteBanque.php';
         if (DEBUG) echo ("ControllerAdministrateur : SelectCompteBanque : vue = $vue"); 
         require ($vue);
     }
