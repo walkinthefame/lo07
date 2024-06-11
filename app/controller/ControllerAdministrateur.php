@@ -2,6 +2,7 @@
 require_once('../model/ModelBanque.php');
 require_once('../model/ModelPersonne.php');
 require_once('../model/ModelCompte.php');
+require_once('../model/ModelResidence.php');
 
 class ControllerAdministrateur
 {
@@ -91,6 +92,7 @@ class ControllerAdministrateur
 
     public static function ListeResidences()
     {
+        
         $residences = ModelResidence::getAllResidences();
         include 'config.php';
         $vue = $root . '/app/view/Admin/ListeResidences.php';

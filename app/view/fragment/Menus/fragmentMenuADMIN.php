@@ -15,7 +15,7 @@
             <li><a class="dropdown-item" href="router2.php?action=getAllClients">Liste des clients</a></li>
             <li><a class="dropdown-item" href="router2.php?action=getAllAdmins">Liste des administrateurs</a></li>
             <li><a class="dropdown-item" href="router2.php?action=getAllComptes">Liste des comptes</a></li> 
-            <li><a class="dropdown-item" href="router2.php?action=getAllResidences">Liste des résidences</a></li>
+            <li><a class="dropdown-item" href="router2.php?action=ListeResidences">Liste des résidences</a></li>
           </ul>
         </li>
         <?php include 'login_signup.php'; ?>

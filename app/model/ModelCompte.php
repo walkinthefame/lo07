@@ -71,6 +71,16 @@ class ModelCompte
         }
     }
 
+    public static function getAllComptes(){
+        $database = Model::getInstance();
+         $sql = 'SELECT personne.nom, personne.prenom, banque.label AS banque_label, banque.pays, compte.label AS compte_label, compte.montant
+            FROM compte
+            INNER JOIN personne ON compte.personne_id = personne.id
+            INNER JOIN banque ON compte.banque_id = banque.id';
+    $query = $database->prepare($sql);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     
 }
