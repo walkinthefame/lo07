@@ -58,8 +58,6 @@ class ControllerAdministrateur
         require ($vue);
     }
 
-
-    //in progress =>
     public static function DisplaySelectCompteBanque()
     {
         $label = htmlspecialchars($_GET['label']);
