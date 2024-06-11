@@ -23,13 +23,12 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
       </thead>
       <tbody>
           <?php
+          $i=0;
+            foreach($comptes as $element2){
+              printf("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",$clients[$i][0]-> getPrenom(), $clients[$i][0]-> getNom() ,$label, $element2->getLabel(), $element2->getMontant());
+              $i++;
+          }
 
-          foreach ($clients as $element) {
-           printf("<tr><td>%s</td><td>%s</td>", $element->getNom(), $element->getPrenom());
-          }
-          foreach($comptes as $element){
-              printf("<td>%s</td><td>%s</td><td>%s</td></tr>", $label, $element->getLabel(), $element->getMontant());
-          }
           ?>
       </tbody>
     </table>

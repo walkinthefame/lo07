@@ -62,10 +62,11 @@ class ControllerAdministrateur
     //in progress =>
     public static function DisplaySelectCompteBanque()
     {
-        $label = $_GET['label'];
-        $results = ModelCompte::getComptes($label);
-        $clients = $results[0];
-        $comptes = $results[1];
+        $label = htmlspecialchars($_GET['label']);
+        $result = ModelCompte::getComptes($label);
+        $comptes = $result[0];
+        $clients = $result[1];
+        $value = $result[2];
         include 'config.php';
         $vue = $root . '/app/view/Admin/viewDisplaySelectCompteBanque.php';
         if (DEBUG) echo ("ControllerAdministrateur : SelectCompteBanque : vue = $vue"); 
