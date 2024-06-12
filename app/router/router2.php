@@ -25,6 +25,16 @@ switch($action)
     case "ListeResidences" :
         ControllerAdministrateur::$action($args);
         break;
+    case "MesComptes":
+    case "UserNewCompte":
+    case "UserNewCompteAdded":
+    case "TransfertCompte":
+    case "TransfertCompteAdded":
+    case "getMyResidences":
+    case "BuyResidence":
+    case "MonPatrimoine":
+        ControllerClient::$action($args);
+        break;
     case "Connexion" :
     case "Connected" :
     case "Disconnect" :

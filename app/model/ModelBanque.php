@@ -121,6 +121,24 @@ class ModelBanque{
         }
     }
 
+    public static function getBanqueByID_asso($id)
+    {
+        try{
+            $database = Model::getInstance();
+            $query = "SELECT * FROM banque WHERE id = :id";
+            $statement = $database->prepare($query);
+            $statement->execute([
+                'id' => $id
+            ]);
+            $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        }
+        catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
 
 
 

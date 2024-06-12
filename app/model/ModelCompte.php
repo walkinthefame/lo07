@@ -82,6 +82,52 @@ class ModelCompte
     return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getOneCompte($id)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT * FROM compte where personne_id = :id";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'id' => $id
+    ]);
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+    foreach($results as $element){
+        $id = $element['banque_id'];
+        $results2 = ModelBanque::getBanqueByID_asso($id);
+        $results[] = $results2;
+    }
+    return $results;
+    }
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+}
+
+}
+
+public static function addCompte($id)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "INSERT INTO compte (label, montant, banque_id, personne_id) VALUES (:label, :montant, :banque_id, :personne_id)";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'label' => $_GET['label'],
+        'montant' => $_GET['montant'],
+        'banque_id' => $_GET['banque_id'],
+        'personne_id' => $id
+    ]);
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+    return $results;
+    }
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+
+}
+
     
+}
 }
 ?>

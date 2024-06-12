@@ -1,5 +1,6 @@
 <?php
 require_once('Model.php');
+require_once('ModelCompte.php');
 class ModelPersonne{
 public const ADMINISTRATEUR =0;
 public const CLIENT =1;
@@ -97,8 +98,8 @@ public static function getAllCompte()
         printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
         return NULL;
 }
-
 }
+
 
 public static function getAllResidence()
 {

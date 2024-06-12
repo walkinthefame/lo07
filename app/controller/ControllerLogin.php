@@ -33,6 +33,21 @@ class ControllerLogin
         }
     }
 
+    public static function Deconnexion()
+    {
+       include 'index.php';
+       include 'config.php';
+       $vue = $root . '/app/view/Login/viewBanqueAccueil.php';
+       require($vue);
+    }
+
+    public static function SignUp()
+    {
+        include 'config.php';
+        $vue = $root . '/app/view/Login/viewSignUp.php';
+        require($vue);
+    }
+
 
 }
 
