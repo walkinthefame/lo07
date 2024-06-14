@@ -11,21 +11,27 @@ class ControllerClient
         require ($vue);
     }
 
-    public static function UserNewCompte()
+    public static function UserNewCompte($args)
     {
         $user = "Béatrice";
         $banques = ModelBanque::getAllBanques();
+        if(DEBUG) echo("ControllerClient : UserNewCompte : begin</br>");
+        $target = $args["target"];
+        if(DEBUG) echo("ControllerClient : UserNewCompte : target = $target</br>");
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewUserNewCompte.php';
         require ($vue);
     }
 
-    public static function UserNewCompteAdded()
+    public static function UserNewCompteAdded($args)
     {
         $label = $_GET['label'];
-        $solde = $_GET['solde'];
+        $solde = $_GET['montant'];
         $banque = $_GET['banque'];
-        $results = ModelCompte::AddCompte($label, $solde, $banque, $_SESSION['id']);
+        $results = ModelCompte::AddCompte($label, $solde, $banque, 1001);
+        if(DEBUG) echo("ControllerClient : UserNewCompte : begin</br>");
+        $target = $args["target"];
+        if(DEBUG) echo("ControllerClient : UserNewCompte : target = $target</br>");
         include 'config.php';
         $vue = $root . '/app/view/Client/viewUserNewCompteAdded.php';
         require ($vue);

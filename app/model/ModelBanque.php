@@ -138,9 +138,7 @@ class ModelBanque{
             return NULL;
         }
     }
-
-
-
-
 }
+
+
 ?>

@@ -4,7 +4,7 @@
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mes comptes bancaires</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="router2.php?action=MesComptes">Liste de mes comptes</a></li>
-            <li><a class="dropdown-item" href="router2.php?action=UserNewCompte">Ajouer un nouveau compte</a></li>
+            <li><a class="dropdown-item" href="router2.php?action=UserNewCompte&target=UserNewCompteAdded">Ajouter un nouveau compte</a></li>
             <li><a class="dropdown-item" href="router2.php?action=TransfertCompte">Transfert inter-comptes</a></li>
           </ul>
         </li>

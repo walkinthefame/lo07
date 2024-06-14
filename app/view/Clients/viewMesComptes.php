@@ -24,7 +24,7 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
   for($i = 0; $i < count($results)/2; $i++){
      printf("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", 
      $results[$i+count($results)/2][0]['label'],
-      $results[$i]['id'], 
+     $results[$i+count($results)/2][0]['pays'], 
       $results[$i]['label'],
     $results[$i]['montant'],
     );
