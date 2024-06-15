@@ -23,17 +23,16 @@ class ControllerClient
         require ($vue);
     }
 
-    public static function UserNewCompteAdded($args)
+    public static function UserNewCompteAdded()
     {
+        $user = "Béatrice";
         $label = $_GET['label'];
         $solde = $_GET['montant'];
-        $banque = $_GET['banque'];
-        $results = ModelCompte::AddCompte($label, $solde, $banque, 1001);
-        if(DEBUG) echo("ControllerClient : UserNewCompte : begin</br>");
-        $target = $args["target"];
-        if(DEBUG) echo("ControllerClient : UserNewCompte : target = $target</br>");
+        $banque = htmlspecialchars($_GET['banque']);
+        $id_banque = ModelBanque::getBanqueIDByLabel($banque);
+        $results = ModelCompte::AddCompte($label, $solde, $id_banque, 1001);
         include 'config.php';
-        $vue = $root . '/app/view/Client/viewUserNewCompteAdded.php';
+        $vue = $root . '/app/view/Clients/viewUserNewCompteAdded.php';
         require ($vue);
     }
 
@@ -41,7 +40,7 @@ class ControllerClient
     {
         $UserComptes = ModelCompte::getComptesByClient($_SESSION['id']);
         include 'config.php';
-        $vue = $root . '/app/view/Client/viewTransfertCompte.php';
+        $vue = $root . '/app/view/Clients/viewTransfertCompte.php';
         if (DEBUG) echo ("ControllerClient : TransfertCompte : vue = $vue");
         require ($vue);
     }
@@ -53,15 +52,16 @@ class ControllerClient
         $montant = $_GET['montant'];
         $results = ModelCompte::TransfertCompte($compte1, $compte2, $montant);
         include 'config.php';
-        $vue = $root . '/app/view/Client/viewTransfertCompteAdded.php';
+        $vue = $root . '/app/view/Clients/viewTransfertCompteAdded.php';
         require ($vue);
     }
 
     public static function getMyResidences()
     {
-        $UserResidences = ModelResidence::getResidencesByClient($_SESSION['id']);
+        $user = "Béatrice";
+        $results = ModelResidence::getClientResidence(1001);
         include 'config.php';
-        $vue = $root . '/app/view/Client/viewMyResidences.php';
+        $vue = $root . '/app/view/Clients/viewMyResidences.php';
         if (DEBUG) echo ("ControllerClient : getMyResidences : vue = $vue");
         require ($vue);
     }
@@ -69,7 +69,7 @@ class ControllerClient
     public static function BuyResidence()
     {
         include 'config.php';
-        $vue = $root . '/app/view/Client/viewBuyResidence.php';
+        $vue = $root . '/app/view/Clients/viewBuyResidence.php';
         require ($vue);
     }
 
@@ -77,7 +77,7 @@ class ControllerClient
     {
         $UserResidences = ModelResidence::getResidencesByClient($_SESSION['id']);
         include 'config.php';
-        $vue = $root . '/app/view/Client/viewMonPatrimoine.php';
+        $vue = $root . '/app/view/Clients/viewMonPatrimoine.php';
         if (DEBUG) echo ("ControllerClient : MonPatrimoine : vue = $vue");
         require ($vue);
     }

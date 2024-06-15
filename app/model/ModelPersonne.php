@@ -144,6 +144,7 @@ public static function getMaxIDCompte()
     $statement = $database->prepare($query);
     $statement->execute();
     $results = $statement -> fetchAll(PDO::FETCH_COLUMN, 0);
+    $results[0] = $results[0] + 1;
     return $results[0];
     }
     catch (PDOException $e) {

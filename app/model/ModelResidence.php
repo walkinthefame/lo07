@@ -62,6 +62,25 @@ class ModelResidence {
         printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
         return NULL;
     }
+}
+
+    public static function getClientResidence($id)
+    {
+        try {
+            $database = Model::getInstance();
+            $query = "SELECT * FROM residence where personne_id = :id";
+            $statement = $database->prepare($query);
+            $statement->execute(
+                ['id' => $id]
+            );
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
+
     
-}}
+}
 ?>

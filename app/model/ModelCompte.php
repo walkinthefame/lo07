@@ -106,21 +106,21 @@ class ModelCompte
 
 }
 
-public static function addCompte($label, $montant, $banque, $id)
+public static function addCompte($label, $montant, $banque, $personne_id)
 {
     try{
     $database = Model::getInstance();
-    $query = "INSERT INTO compte (id, label, montant, banque_id, personne_id) VALUES (:id, :label, :montant, :banque_id, :personne_id)";
     $id = ModelPersonne::getMaxIDCompte();
+    $query = "INSERT INTO compte (id, label, montant, banque_id, personne_id) VALUES (:id, :label, :montant, :banque_id, :personne_id)";
     $statement = $database->prepare($query);
     $statement->execute([
+        'id' => $id,
         'label' => $label,
         'montant' => $montant,
         'banque_id' => $banque,
-        'personne_id' => $id
+        'personne_id' => $personne_id
     ]);
-    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
-    return $results;
+    return 1;
     }
     catch (PDOException $e) {
         printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
