@@ -46,10 +46,11 @@ class ModelResidence {
         return $this->personne_id;
     }
 
+    /*appelée pour afficher toutes les residences avec toutes les infos*/
     public static function getAllResidences(){
         try {
             $database = Model::getInstance();
-            $query = "SELECT personne.nom, personne.prenom, residence.label, residence.prix, residence.ville
+           $query = "SELECT personne.nom, personne.prenom, residence.label, residence.prix, residence.ville
                   FROM residence 
                   INNER JOIN personne ON residence.personne_id = personne.id
                   ORDER BY residence.prix ASC";
@@ -63,6 +64,89 @@ class ModelResidence {
         return NULL;
     }
 }
+    /*donne les noms de toutes les residences de la table residence*/
+    public static function getNameResidences(){
+        try{
+            $database = Model::getInstance();
+            $query = "SELECT label 
+            FROM residence" ;
+            $statement = $database->prepare($query);
+            $statement->execute();
+            $results = $statement -> fetchAll(PDO::FETCH_COLUMN, 0);
+            return $results;
+        }
+        catch(PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
+
+    public static function getResidenceOwner($residenceToBuy){
+        try{
+            $database = Model::getInstance();
+            $query1 = "SELECT personne_id from residence where label = :residenceToBuy";  /*recupere l id de la personne qui possede la residence actuellement */
+            $statement = $database->prepare($query1);
+            $statement->execute(['residenceToBuy' => $residenceToBuy]);
+            $results = $statement->fetchColumn();
+            return $results; 
+        }
+        catch(PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
+    public static function OwnAccountOrNot ($personneId){
+        try{
+        $database = Model::getInstance();
+            $query = "SELECT label FROM compte WHERE personne_id = :personneId";
+            $statement = $database->prepare($query);
+            $statement->execute(['personneId' => $personneId]);
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $results ; 
+        }
+        catch(PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+
+
+    }
+
+    public static function getResidencePrice($residenceName){
+        try{
+            $database = Model::getInstance();
+                $query = "SELECT prix FROM residence WHERE label = :residenceName";
+                $statement = $database->prepare($query);
+                $statement->execute(['residenceName' => $residenceName]);
+                $result = $statement->fetchColumn();
+                return $result; 
+            }
+            catch(PDOException $e) {
+                printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+                return NULL;
+            }
+    }
+
+    public static function transactionResidence( $residenceName, $ownerId, $userId){
+        try{
+            $database = Model::getInstance();
+            $query = "UPDATE residence SET personne_id = :newOwnerId WHERE label = :residenceName";
+                $statement = $database->prepare($query);
+                $statement->execute(['newOwnerId' => $userId, 'residenceName' => $residenceName]);
+            }
+            catch(PDOException $e) {
+                printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+                return NULL;
+            }
+
+    }
+
+
+
+
+
 
     public static function getClientResidence($id)
     {

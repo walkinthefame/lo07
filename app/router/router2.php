@@ -31,8 +31,11 @@ switch($action)
     case "TransfertCompte":
     case "TransfertCompteAdded":
     case "getMyResidences":
-    case "BuyResidence":
+    /*case "BuyResidence":*/
+    case "selectResidenceToBuy":
     case "MonPatrimoine":
+    case "recuperationNameResidenceToBuy":
+    case "transactionBuyResidence":
         ControllerClient::$action($args);
         break;
     case "Connexion" :
