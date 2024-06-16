@@ -37,24 +37,41 @@ class ControllerClient
         require ($vue);
     }
 
-    public static function TransfertCompte()
+    public static function TransfertCompte($args)
     {
-        $UserComptes = ModelCompte::getComptesByClient($_SESSION['id']);
+        $user = "Béatrice";
+        $results = ModelCompte::COUNTOneCompte(1007);
+        $results2 = ModelCompte::getOneCompte(1007);
+        if(DEBUG) echo("ControllerClient : TransfertCompte : begin</br>");
+        $target = $args["target"];
+        if(DEBUG) echo("ControllerClient : TransfertCompte : target = $target</br>");
         include 'config.php';
-        $vue = $root . '/app/view/Clients/viewTransfertCompte.php';
-        if (DEBUG) echo ("ControllerClient : TransfertCompte : vue = $vue");
+        $vue = $root . '/app/view/Clients/viewTransfertsCompte.php';
         require ($vue);
     }
 
     public static function TransfertCompteAdded()
     {
+        $user = "Béatrice";
         $compteFROM = $_GET['compte1'];
-        $compteTO = $_GET['compte2'];
         $montant = $_GET['montant'];
-        $results = ModelCompte::TransfertCompte($compte1, $compte2, $montant);
+        $results = ModelCompte::TransfertCompte(1007,$compteFROM); 
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewTransfertCompteAdded.php';
         require ($vue);
+    }
+
+    public static function TransfertCompteDone()
+    {
+        $user = "Béatrice";
+        $compteFROM = $_GET['compteFROM'];
+        $compteTO = $_GET['compteTO'];
+        $montant = $_GET['montant'];
+        $results = ModelCompte::TransfertCompteDone($compteFROM, $compteTO, $montant, 1007);
+        include 'config.php';
+        $vue = $root . '/app/view/Clients/viewTransfertCompteDone.php';
+        require ($vue);
+
     }
 
     public static function getMyResidences()

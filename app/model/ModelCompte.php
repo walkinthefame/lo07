@@ -130,5 +130,142 @@ public static function addCompte($label, $montant, $banque, $personne_id)
 
     
 }
+
+public static function COUNTOneCompte($id)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT * FROM compte where personne_id = :id";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'id' => $id
+    ]);
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+    foreach($results as $element){
+        $id = $element['banque_id'];
+        $results2 = ModelBanque::getBanqueByID_asso($id);
+        $results[] = $results2;
+    }
+    if(count($results)/2<2)
+    {
+        return 0;
+    }
+    else{
+        return 1;
+    }
+    }
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+}
+
+}
+
+public static function TransfertCompte($id, $compte1)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT * FROM compte where personne_id = :id";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'id' => $id
+    ]);
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+    $i = ModelCompte::CountIndex($compte1, 1007);
+    unset($results[$i]);
+    foreach($results as $element)
+    {
+        $newTab[] = $element;
+    }
+    return $newTab;
+}
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+}
+}
+
+public static function CountIndex($compte1, $userID){
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT * FROM compte where personne_id = :personne_id";
+    $statement = $database->prepare($query);
+    $statement->execute(
+        ['personne_id' => $userID]
+    );
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+    for($i = 0; $i < count($results); $i++){
+        if($results[$i]['label'] == $compte1){
+            return $i;
+        }
+    }
+}
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+    }
+}
+
+public static function TransfertCompteDone($compteFROM, $compteTO, $montant, $userID)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT montant from compte where label = :label and personne_id = :personne_id";
+    $statement = $database->prepare($query);
+    $statement->execute(
+        ['label' => $compteFROM
+        ,'personne_id' => $userID]
+    );
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+    $montantFROM = $results['montant'];
+    $query = "SELECT montant from compte where label = :label";
+    $statement = $database->prepare($query);
+    $statement->execute(
+        ['label' => $compteTO]
+    );
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+    $montantTO = $results[0]['montant'];
+    $montantFROM = $montantFROM - $montant;
+    $montantTO = $montantTO + $montant;
+    $query = "UPDATE compte SET montant = :montant WHERE label = :label";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'montant' => $montantFROM,
+        'label' => $compteFROM
+    ]);
+    $query = "UPDATE compte SET montant = :montant WHERE label = :label";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'montant' => $montantTO,
+        'label' => $compteTO
+    ]);
+    return 1;
+}
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+    }
+}
+
+public static function getCompteIDbyLabel($label, $userID)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT id from compte where label = :label and personne_id = :personne_id";
+    $statement = $database->prepare($query);
+    $statement->execute(
+        ['label' => $label
+        ,'personne_id' => $userID
+        ]
+    );
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+    return $results[0]['id'];
+}
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+        
+}
+}
 }
 ?>

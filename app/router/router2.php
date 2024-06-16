@@ -30,6 +30,7 @@ switch($action)
     case "UserNewCompteAdded":
     case "TransfertCompte":
     case "TransfertCompteAdded":
+    case "TransfertCompteDone" : 
     case "getMyResidences":
     /*case "BuyResidence":*/
     case "selectResidenceToBuy":
