@@ -65,12 +65,13 @@ class ModelResidence {
     }
 }
     /*donne les noms de toutes les residences de la table residence*/
-    public static function getNameResidences(){
+    public static function getNameResidences($userId){
         try{
             $database = Model::getInstance();
             $query = "SELECT label 
-            FROM residence" ;
+            FROM residence WHERE personne_id!= :userId" ;
             $statement = $database->prepare($query);
+            $statement->bindValue(':userId', $userId, PDO::PARAM_INT);
             $statement->execute();
             $results = $statement -> fetchAll(PDO::FETCH_COLUMN, 0);
             return $results;
@@ -164,6 +165,51 @@ class ModelResidence {
         }
     }
 
+    public static function transactionCompte($buyerAccount, $ownerAccount, $residencePrice){
+        try{
+            $database = Model::getInstance();
+            $query1 = "UPDATE compte SET montant = montant + :residencePrice WHERE label = :ownerAccount";
+            $query2 = "UPDATE compte SET montant = montant - :residencePrice WHERE label = :buyerAccount";
+            $statement1 = $database->prepare($query1);
+            $statement1->execute(['residencePrice' => $residencePrice, 'ownerAccount' => $ownerAccount]);
+            $statement2 = $database->prepare($query2);
+            $statement2->execute(['residencePrice' => $residencePrice, 'buyerAccount' => $buyerAccount]);
+        }
+        catch(PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
+    public static function getMontantNomCompte($userId){
+        try{
+            $database = Model::getInstance();
+            $query = "SELECT label, montant FROM compte WHERE personne_id = :userId";
+            $statement = $database->prepare($query);
+            $statement->execute(['userId' => $userId]);
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $result ; 
+        }
+        catch(PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
+    public static function getNomPrixResidence($userId){
+        try{
+            $database = Model::getInstance();
+            $query = "SELECT label, prix FROM residence where personne_id = :userId";
+            $statement = $database->prepare($query);
+            $statement->execute(['userId' => $userId]);
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch(PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
 
     
 }

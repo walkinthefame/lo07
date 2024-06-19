@@ -19,7 +19,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon patrimoine</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="router2.php?action=MonPatrimoine">Bilan de mon patrimoine</a></li>
+            <li><a class="dropdown-item" href="router2.php?action=patrimoine">Bilan de mon patrimoine</a></li>
           </ul>
         </li>
         <?php include 'login_signup.php'; ?>

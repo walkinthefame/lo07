@@ -37,6 +37,7 @@ switch($action)
     case "MonPatrimoine":
     case "recuperationNameResidenceToBuy":
     case "transactionBuyResidence":
+    case "patrimoine":
         ControllerClient::$action($args);
         break;
     case "Connexion" :

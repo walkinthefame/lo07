@@ -86,7 +86,9 @@ class ControllerClient
 
     /*affichage de la vue qui permet de selectionner la residence a acheter */ 
     public static function selectResidenceToBuy(){
-        $results = ModelResidence::getNameResidences();
+        $user = "Béatrice";
+        $userId = 1001 ;
+        $results = ModelResidence::getNameResidences($userId);     /*getNameResidence permet d obtenir tout les labels des residences de la base de données*/
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewSelectResidenceToBuy.php';
         require ($vue);
@@ -119,9 +121,23 @@ class ControllerClient
         $residenceName = $_GET['residence'];
         $ownerId = ModelResidence::getResidenceOwner($residenceName);
         ModelResidence::transactionResidence($residenceName, $ownerId, $userId);
+        ModelResidence::transactionCompte($buyerAccount, $ownerAccount, $residencePrice);
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewTransactionBuyResidence.php';
         require($vue);
+    }
+
+    public static function patrimoine(){
+        $userId = 1001 ; 
+        /*recupere le montant de chaque compte et le nom de chaque compte */ 
+        $liste_compte_montant = ModelResidence::getMontantNomCompte($userId);
+        /*recuperer ses residences et leur montant*/
+        $liste_residence_prix = ModelResidence::getNomPrixResidence($userId);
+        include 'config.php';
+        $vue = $root . '/app/view/Clients/viewMonPatrimoine.php';
+        $data = compact('liste_compte_montant', 'liste_residence_prix');
+        require($vue);
+
     }
 
 
