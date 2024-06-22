@@ -15,6 +15,10 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
   echo "Le compte $label de $user a été ajouté avec succès avec un montant de : $solde euros";
   
   }
+  else if($results==-1)
+  {
+    echo "<h3>Erreur lors de l'ajout du nouveau compte de $user : ce label existe déjà</h3> ";
+  }
   else{
     echo "<h3>Erreur lors de l'ajout du nouveau compte de $user</h3> ";
   }?>

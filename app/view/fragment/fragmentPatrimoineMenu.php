@@ -26,7 +26,7 @@ switch ($_SESSION['type'])
 
 }
 */
-include('Menus/fragmentMenuCLIENT.php');
+require('Menus/fragmentMenuADMIN.php')
 ?>      
 </ul>
 </div>

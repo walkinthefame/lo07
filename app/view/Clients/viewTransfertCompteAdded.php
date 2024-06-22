@@ -15,8 +15,8 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
     echo "<form role=\"form\" method='get' action='router2.php'>
           <div class=\"form-group\">
             <input type=\"hidden\" name='action' value='TransfertCompteDone'>  
-            <input type=\"hidden\" name='compteFROM' id='compteFROM' value='$compteFROM'>
-            <input type=\"hidden\" name='montant' id='montant' value='$montant'>     
+            <input type=\"hidden\" name='compteFROM' id='compteFROM' value='". $compteFROM ."'> 
+            <input type=\"hidden\" name='montant' id='montant' value='". $montant . "'> 
             <label class='w-25' for='compteTO'>Sélectionnez le compte d'arrivée     : </label><select class=\"form-control\" id='compteTO' name='compteTO' style=\"width: 250px\">";
     
     for($i = 0; $i < count($results); $i++) {

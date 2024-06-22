@@ -14,30 +14,40 @@ class ControllerLogin
         require ($vue);
     }
 
-    public static function Connected()
+    public static function Connected($args)
     {
+        if(DEBUG) echo("ControllerLogin : Connected : begin</br>");
         $user = $_POST['user'];
         $password = $_POST['password'];
         $result = ModelLogin::CheckUser($user, $password);
         if ($result == "admin")
         {
-            ControllerAdministrateur::BanqueAccueil();
+            $_SESSION['user'] = $user;
+            $_SESSION['type'] = 0;
+
         }
         else if ($result == "client")
         {
-            ControllerClient::ClientAccueil();
+            $_SESSION['type'] = 1;
         }
         else
         {
+            $_SESSION['type'] = -1;
             echo "Erreur de connexion : Vérifiez que vous possédez un compte et que vos identifiants sont corrects";
         }
-    }
+        $target = $args["target"];
+        if(DEBUG) echo("ControllerLogin : Connected : target = $target</br>");
+        include 'config.php';
+        $vue = $root . '/app/view/Login/truc.php';
+        require ($vue);
+
+        }
 
     public static function Deconnexion()
     {
        include 'index.php';
        include 'config.php';
-       $vue = $root . '/app/view/Login/viewBanqueAccueil.php';
+       $vue = $root . '/app/view/index.php';
        require($vue);
     }
 

@@ -12,21 +12,21 @@ class ModelLogin
                 'user' => $user,
                 'password' => $password
             ]);
-            $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelPersonne");
-            if($statement->rowCount() >0)
+            $results = $statement->fetchAll(PDO::FETCH_COLUMN);
+            if(count($results)>0)
             {
-                if ($results->getStatut() == 0)
+                if ($results[0]["statut"]==0)
                 {
-                    return "admin";
+                    return 0
                 }
-                else
+                else if ($results[0]["statut"]==1)
                 {
-                    return "client";
+                    return 1;
                 
                 }
             }
             else{
-                return "error";
+                return -1;
             }
         } catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());

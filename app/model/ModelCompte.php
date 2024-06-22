@@ -111,6 +111,18 @@ public static function addCompte($label, $montant, $banque, $personne_id)
     try{
     $database = Model::getInstance();
     $id = ModelPersonne::getMaxIDCompte();
+    $query = "SELECT * from compte where label = :label and personne_id = :personne_id";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'label' => $label,
+        'personne_id' => $personne_id
+    ]);
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
+    if(count($results) != 0)
+    {
+        return -1;
+    }
+    else{
     $query = "INSERT INTO compte (id, label, montant, banque_id, personne_id) VALUES (:id, :label, :montant, :banque_id, :personne_id)";
     $statement = $database->prepare($query);
     $statement->execute([
@@ -122,6 +134,7 @@ public static function addCompte($label, $montant, $banque, $personne_id)
     ]);
     return 1;
     }
+}
     catch (PDOException $e) {
         printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
         return NULL;
@@ -171,7 +184,7 @@ public static function TransfertCompte($id, $compte1)
         'id' => $id
     ]);
     $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
-    $i = ModelCompte::CountIndex($compte1, 1007);
+    $i = ModelCompte::CountIndex($compte1, $id);
     unset($results[$i]);
     foreach($results as $element)
     {
@@ -217,14 +230,15 @@ public static function TransfertCompteDone($compteFROM, $compteTO, $montant, $us
         ,'personne_id' => $userID]
     );
     $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
-    $montantFROM = $results['montant'];
-    $query = "SELECT montant from compte where label = :label";
+    $montantFROM = $results[0]['montant'];
+    $query = "SELECT montant from compte where label = :label and personne_id = :personne_id";
     $statement = $database->prepare($query);
     $statement->execute(
-        ['label' => $compteTO]
+        ['label' => $compteTO
+        ,'personne_id' => $userID]
     );
     $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
-    $montantTO = $results[0]['montant'];
+    $montantTO = $results[0]["montant"];
     $montantFROM = $montantFROM - $montant;
     $montantTO = $montantTO + $montant;
     $query = "UPDATE compte SET montant = :montant WHERE label = :label";
@@ -239,7 +253,7 @@ public static function TransfertCompteDone($compteFROM, $compteTO, $montant, $us
         'montant' => $montantTO,
         'label' => $compteTO
     ]);
-    return 1;
+    return $results;
 }
     catch (PDOException $e) {
         printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
