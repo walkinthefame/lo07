@@ -6,7 +6,7 @@ $query_string = $_SERVER['QUERY_STRING'];
 
 parse_str($query_string, $param);
 
-$action = htmlspecialchars($param["action"]);
+$action = htmlspecialchars($param['action']);
 $action = $param['action'];
 unset($param['action']);
 $args = $param;
@@ -38,6 +38,9 @@ switch($action)
     case "recuperationNameResidenceToBuy":
     case "transactionBuyResidence":
     case "patrimoine":
+    case "TransfertREDIRECTED" : 
+    case "ResidenceREDIRECTED" :
+    case "CompteREDIRECTED" : 
         ControllerClient::$action($args);
         break;
     case "Connexion" :

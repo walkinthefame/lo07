@@ -12,7 +12,7 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
   <h3><?php echo "Formulaire de transfert d'argent pour $user" ?></h3> 
   <br>
   <?php
-    echo "<form role=\"form\" method='get' action='router2.php'>
+    echo "<form role=\"form\" method='POST' action='router2.php?action=TransfertCompteDone'>
           <div class=\"form-group\">
             <input type=\"hidden\" name='action' value='TransfertCompteDone'>  
             <input type=\"hidden\" name='compteFROM' id='compteFROM' value='". $compteFROM ."'> 

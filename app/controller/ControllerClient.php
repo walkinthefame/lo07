@@ -53,8 +53,8 @@ class ControllerClient
     public static function TransfertCompteAdded()
     {
         $user = "Béatrice";
-        $compteFROM = $_GET['compte1'];
-        $montant = $_GET['montant'];
+        $compteFROM = $_POST['compte1'];
+        $montant = $_POST['montant'];
         $results = ModelCompte::TransfertCompte(1001, $compteFROM); 
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewTransfertCompteAdded.php';
@@ -64,12 +64,23 @@ class ControllerClient
     public static function TransfertCompteDone()
     {
         $user = "Béatrice";
-        $compteFROM = htmlspecialchars($_GET['compteFROM']);
-        $compteTO = $_GET['compteTO'];
-        $montant = $_GET['montant'];
+        $compteFROM = htmlspecialchars($_POST['compteFROM']);
+        $compteTO = $_POST['compteTO'];
+        $montant = $_POST['montant'];
         $results = ModelCompte::TransfertCompteDone($compteFROM, $compteTO, $montant, 1001);
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewTransfertCompteDone.php';
+        require ($vue);
+    }
+
+    public static function TransfertREDIRECTED()
+    {
+        $user = "Béatrice";
+        $compteFROM = htmlspecialchars($_GET['compteFROM']);
+        $compteTO = $_GET['compteTO'];
+        $montant = $_GET['montant'];
+        include 'config.php';
+        $vue = $root . '/app/view/Clients/viewTransfertREDIRECTED.php';
         require ($vue);
     }
 
@@ -139,6 +150,26 @@ class ControllerClient
         $data = compact('liste_compte_montant', 'liste_residence_prix');
         require($vue);
 
+    }
+
+    public static function ResidenceREDIRECTED()
+    {
+        $user = "Béatrice";
+        include 'config.php';
+        $vue = $root . '/app/view/Clients/viewResidenceDIRECTED.php';
+        require ($vue);
+    
+    }
+
+    public static function CompteREDIRECTED()
+    {
+        $user = $_GET['user'];
+        $label = $_GET['label'];
+        $solde = $_GET['solde'];
+        $results = $_GET['results'];
+        include 'config.php';
+        $vue = $root . '/app/view/Clients/viewUserNewCompteDIRECTED.php';
+        require ($vue);
     }
 
 
