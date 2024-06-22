@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg bg-success fixed-top">
   <div class="container-fluid">
   <a class="navbar-brand" href="router2.php?action=BanqueAccueil"> HAOUAS Lena / SEFFAR Youssef</a>
@@ -11,22 +12,7 @@
 
 
 <?php
-/*
-switch ($_SESSION['type'])
-{
-    case ModelPersonne::ADMINISTRATEUR :
-        require('Menus/fragmentMenuADMIN.php');
-        break;
-    case ModelPersonne::CLIENT :
-        require('Menus/fragmentMenuCLIENT.php');
-        break;
-    default :
-        require('Menus/fragmentMenuVisiteur.php');
-        break;
-
-}
-*/
-require('Menus/fragmentMenuADMIN.php')
+require('Menus/session_verifyMENU.php');
 ?>      
 </ul>
 </div>

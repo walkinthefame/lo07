@@ -1,4 +1,5 @@
 <!-- ----- début viewAll -->
+ <?php session_start();?>
 <?php
 require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
 ?>
@@ -29,5 +30,4 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
     </table>
   </div>
   <?php include $root . '/app/view/fragment/fragmentPatrimoineFooter.html'; ?>
-
   <!-- ----- fin viewAll -->

@@ -10,11 +10,10 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
       include $root . '/app/view/fragment/fragmentPatrimoineJumbotron.html';
       ?>
     <h3>Formulaire de Login : </h3>
-    <form role="form" method='post' action='router2.php'>
-      <div class="form-group">
-        <input type="hidden" name='action' value='login'>        
-        <label class='w-25' for="username">Username</label><input type="text" name='user' value='username'> <br/>                          
-        <label class='w-25' for="password">Mot de passe</label><input type="password" name='password' value='password'> <br/>       <br/>          
+    <form role="form" method='POST' action='router2.php?action=Connected'>
+      <div class="form-group">      
+        <label class='w-25' for="username">Username : </label><input type="text" name='user' value='' required> <br/>                          
+        <label class='w-25' for="password">Mot de passe : </label><input type="password" name='password' value='' required> <br/>       <br/>          
       </div>
       <p/>
        <br/> 
