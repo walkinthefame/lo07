@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg bg-success fixed-top">
   <div class="container-fluid">
   <a class="navbar-brand" href="router2.php?action=BanqueAccueil"> HAOUAS Lena / SEFFAR Youssef</a>
