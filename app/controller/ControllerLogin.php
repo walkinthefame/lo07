@@ -54,6 +54,26 @@ class ControllerLogin
         require($vue);
     }
 
+    public static function SignedUp()
+    {
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $user = $_POST['login'];
+        $password = $_POST['password'];
+        $result = ModelLogin::Register($nom, $prenom, $user, $password);
+        include 'config.php';
+        $vue = $root . '/app/view/Login/viewSignedUp.php';
+        require($vue);
+    }
+
+    public static function SignedUpREDIRECTED()
+    {
+        $result = $_GET['result'];
+        include 'config.php';
+        $vue = $root . '/app/view/Login/viewSignUpREDIRECTED.php';
+        require($vue);
+    }
+
 
 }
 

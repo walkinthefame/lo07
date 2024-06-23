@@ -47,6 +47,8 @@ switch($action)
     case "Connected" :
     case "Disconnect" :
     case "SignUp" :
+    case "SignedUp" :
+    case "SignedUpREDIRECTED" :
         ControllerLogin::$action($args);
         break;
     default :
