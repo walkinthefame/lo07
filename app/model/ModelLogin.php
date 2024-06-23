@@ -51,12 +51,12 @@ class ModelLogin
     public static function Register($nom, $prenom, $user,$password)
     {
         try {
-            $id = ModelPersonne::getMaxIDCompte();
+            $id = ModelPersonne::getMaxIDPersonne();
             $database = Model::getInstance();
             $query = "INSERT INTO personne (id, nom, prenom, statut, login, password) VALUES (:id, :nom, :prenom, 1, :user, :password)";
             $statement = $database->prepare($query);
             $statement->execute([
-                'id' => $id+1,
+                'id' => $id,
                 'nom' => $nom,
                 'prenom' => $prenom,
                 'user' => $user,

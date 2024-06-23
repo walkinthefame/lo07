@@ -152,5 +152,21 @@ public static function getMaxIDCompte()
         return NULL;
 }
 }
+public static function getMaxIDPersonne()
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT MAX(id) FROM personne";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $results = $statement -> fetchAll(PDO::FETCH_COLUMN, 0);
+    $results[0] = $results[0] + 1;
+    return $results[0];
+    }
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+}
+}
 }
 ?>

@@ -16,7 +16,7 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
         }
         else
         {
-            echo "Erreur lors de l'inscription, veuillez réessayer";
+            echo "Erreur lors de l'inscription, votre login déjà présent dans la base de données";
             
       }
     ?>
