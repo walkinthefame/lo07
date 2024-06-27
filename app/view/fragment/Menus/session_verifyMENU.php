@@ -1,11 +1,11 @@
 <?php
 require_once('../model/ModelPersonne.php');
-if (isset($_SESSION['login'])) {
-      switch ($statut) {
-        case ModelPersonne::ADMINISTRATEUR:
+if (isset($_SESSION['type'])) {
+      switch ($_SESSION['type']) {
+        case 0:
             require('fragmentMenuADMIN.php');
             break;
-        case ModelPersonne::CLIENT:
+        case 1:
             require('fragmentMenuCLIENT.php');
             break;
         default:

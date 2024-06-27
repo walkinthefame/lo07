@@ -12,7 +12,7 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
       <?php 
         if ($result ==1)
         {
-            echo "Votre compte a bien été créé, vous êtes connecté en tant qu'utilisateur";
+            echo "Votre compte a bien été créé, veuillez vous connecter pour accéder à votre espace personnel";
         }
         else
         {

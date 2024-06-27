@@ -9,6 +9,8 @@ class ControllerLogin
 {
     public static function Connexion()
     {
+        session_destroy();
+        $database = Model::getInstance();
         include 'config.php';
         $vue = $root . '/app/view/Login/viewLogin.php';
         require ($vue);
@@ -27,6 +29,7 @@ class ControllerLogin
 
     public static function Deconnexion()
     {
+        $database = Model::getInstance();
        $_SESSION['login'] = 'vide';     
        include 'config.php';
        session_destroy();
@@ -36,6 +39,8 @@ class ControllerLogin
 
     public static function SignUp()
     {
+        session_destroy();
+        $database = Model::getInstance();
         include 'config.php';
         $vue = $root . '/app/view/Login/viewSignUp.php';
         require($vue);
@@ -55,6 +60,7 @@ class ControllerLogin
 
     public static function SignedUpREDIRECTED()
     {
+        $database = Model::getInstance();
         $result = $_GET['result'];
         include 'config.php';
         $vue = $root . '/app/view/Login/viewSignUpREDIRECTED.php';
@@ -63,12 +69,14 @@ class ControllerLogin
 
     public static function AmeliorationMVC()
     {
+        $database = Model::getInstance();
         include 'config.php';
         $vue = $root . '/app/view/ameliorations/MVC.php';
         require($vue);
     }
     public static function fonctionnalite()
-    {
+    {   
+        $database = Model::getInstance();
         include 'config.php';
         $vue = $root . '/app/view/ameliorations/fonctionnalite.php';
         require($vue);

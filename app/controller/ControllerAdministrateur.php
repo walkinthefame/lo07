@@ -8,6 +8,7 @@ class ControllerAdministrateur
 {
     public static function BanqueAccueil()
     {
+        $database = Model::getInstance();
         include 'config.php';
         $vue = $root . '/app/view/viewBanqueAccueil.php';
         if (DEBUG) echo ("ControllerAdministrateur : BanqueAccueil : vue = $vue");
@@ -34,6 +35,7 @@ class ControllerAdministrateur
 
     public static function addBanque()
     {
+        $database = Model::getInstance();   
         include 'config.php';
         $vue = $root . '/app/view/Admin/viewAddBanque.php';
         require ($vue);

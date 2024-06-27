@@ -11,8 +11,8 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
       ?><?php 
   if($results==1)
   {
-    echo "<h3>Informations concernant l'ajout du nouveau compte de $user</h3>";
-    echo "Le compte $label de $user a été ajouté avec succès avec un montant de : $solde euros";
+    echo "<h3>Informations concernant l'ajout du nouveau compte</h3>";
+    echo "Le compte $label a été ajouté avec succès avec un montant de : $solde euros";
   
   }
   else if($results==-1)
@@ -22,7 +22,7 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
   else{
     echo "<h3>Erreur lors de l'ajout du nouveau compte de $user</h3> ";
   }?>
-  <br>
+  <br><br>
 
 
       </div>

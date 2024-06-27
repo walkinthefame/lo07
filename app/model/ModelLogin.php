@@ -31,6 +31,7 @@ class ModelLogin
                 }
             }
             else{
+                session_destroy();
                 return -1;
             }
         } catch (PDOException $e) {

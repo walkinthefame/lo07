@@ -1,9 +1,10 @@
 <?php
+session_start();
 require_once('Model.php');
 require_once('ModelCompte.php');
 class ModelPersonne {
-public const ADMINISTRATEUR =0;
-public const CLIENT =1;
+const ADMINISTRATEUR =0;
+const CLIENT =1;
 
 private $id, $nom, $prenom, $statut, $login, $password;	
 
@@ -197,7 +198,11 @@ public static function getIDByUser($user)
         'user' => $user
     ]);
     $results = $statement -> fetchAll(PDO::FETCH_COLUMN, 0);
-    return $results[0];
+    if(count($results)==0){
+        return -1;
+    }
+    else{
+    return $results[0];}
     }
     catch (PDOException $e) {
         printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
@@ -205,6 +210,42 @@ public static function getIDByUser($user)
 }
 
 
+}
+
+public static function getNomByID($id)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT nom FROM personne where id = :id";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'id' => $id
+    ]);
+    $results = $statement -> fetchAll(PDO::FETCH_COLUMN, 0);
+    return $results[0];
+    }
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+}
+}
+
+public static function getPrenomByID($id)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT prenom FROM personne where id = :id";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'id' => $id
+    ]);
+    $results = $statement -> fetchAll(PDO::FETCH_COLUMN, 0);
+    return $results[0];
+    }
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+}
 }
 }
 ?>

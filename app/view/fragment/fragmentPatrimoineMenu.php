@@ -1,11 +1,20 @@
 <?php
 if (isset($_SESSION['login'])) {
   $id = ModelPersonne::getIDByUser($_SESSION['login']);
+  if ($id == -1) {
+    $_SESSION['nom'] = null;
+    $_SESSION['prenom'] = null;
+  }
+  else{
+  $_SESSION['id'] = $id;
+  $_SESSION['nom'] = ModelPersonne::getNomByID($id);
+  $_SESSION['prenom'] = ModelPersonne::getPrenomByID($id);
+  $nom = $_SESSION['nom'];
+  $prenom = $_SESSION['prenom'];
   $userModel = new ModelPersonne();
   $user = ModelPersonne::getPersonneByID($id);
-  $prenom = isset($user['prenom']) ? $user['prenom'] : null;
-  $nom = isset($user['nom']) ? $user['nom'] : null;
   $statut = isset($user['statut']) ? $user['statut'] : null;
+  }
 }
 ?>
 
@@ -25,7 +34,7 @@ if (isset($_SESSION['login'])) {
   }
   echo " | ";
   if(isset($prenom) && isset($nom)){
-    echo $prenom." ".$nom;
+    echo $nom." ".$prenom;
     }
   echo " | ";
   ?></a>

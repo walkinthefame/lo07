@@ -5,7 +5,7 @@ class ControllerClient
     public static $residenceName  ;
     public static function MesComptes()
     {
-        $results = ModelCompte::getOneCompte(1001);
+        $results = ModelCompte::getOneCompte($_SESSION['id']);
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewMesComptes.php';
         if (DEBUG) echo ("ControllerClient : MesComptes : vue = $vue");
@@ -14,7 +14,7 @@ class ControllerClient
 
     public static function UserNewCompte($args)
     {
-        $user = "Béatrice";
+        $user = $_SESSION['nom'];
         $banques = ModelBanque::getAllBanques();
         if(DEBUG) echo("ControllerClient : UserNewCompte : begin</br>");
         $target = $args["target"];
@@ -31,7 +31,7 @@ class ControllerClient
         $solde = $_GET['montant'];
         $banque = htmlspecialchars($_GET['banque']);
         $id_banque = ModelBanque::getBanqueIDByLabel($banque);
-        $results = ModelCompte::AddCompte($label, $solde, $id_banque, 1001);
+        $results = ModelCompte::AddCompte($label, $solde, $id_banque, $_SESSION['id']);
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewUserNewCompteAdded.php';
         require ($vue);
@@ -40,8 +40,8 @@ class ControllerClient
     public static function TransfertCompte($args)
     {
         $user = "Béatrice";
-        $results = ModelCompte::COUNTOneCompte(1001);
-        $results2 = ModelCompte::getOneCompte(1001);
+        $results = ModelCompte::COUNTOneCompte($_SESSION['id']);
+        $results2 = ModelCompte::getOneCompte($_SESSION['id']);
         if(DEBUG) echo("ControllerClient : TransfertCompte : begin</br>");
         $target = $args["target"];
         if(DEBUG) echo("ControllerClient : TransfertCompte : target = $target</br>");
@@ -55,7 +55,7 @@ class ControllerClient
         $user = "Béatrice";
         $compteFROM = $_POST['compte1'];
         $montant = $_POST['montant'];
-        $results = ModelCompte::TransfertCompte(1001, $compteFROM); 
+        $results = ModelCompte::TransfertCompte($_SESSION['id'], $compteFROM); 
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewTransfertCompteAdded.php';
         require ($vue);
@@ -67,7 +67,7 @@ class ControllerClient
         $compteFROM = htmlspecialchars($_POST['compteFROM']);
         $compteTO = $_POST['compteTO'];
         $montant = $_POST['montant'];
-        $results = ModelCompte::TransfertCompteDone($compteFROM, $compteTO, $montant, 1001);
+        $results = ModelCompte::TransfertCompteDone($compteFROM, $compteTO, $montant, $_SESSION['id']);
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewTransfertCompteDone.php';
         require ($vue);
@@ -79,6 +79,7 @@ class ControllerClient
         $compteFROM = htmlspecialchars($_GET['compteFROM']);
         $compteTO = $_GET['compteTO'];
         $montant = $_GET['montant'];
+        $database = Model::getInstance();
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewTransfertREDIRECTED.php';
         require ($vue);
@@ -89,7 +90,7 @@ class ControllerClient
     public static function getMyResidences()
     {
         $user = "Béatrice";
-        $results = ModelResidence::getClientResidence(1001);
+        $results = ModelResidence::getClientResidence($_SESSION['id']);
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewMyResidences.php';
         if (DEBUG) echo ("ControllerClient : getMyResidences : vue = $vue");
@@ -99,7 +100,7 @@ class ControllerClient
     /*affichage de la vue qui permet de selectionner la residence a acheter */ 
     public static function selectResidenceToBuy(){
         $user = "Béatrice";
-        $userId = 1001 ;
+        $userId = $_SESSION['id'] ;
         $results = ModelResidence::getNameResidences($userId);     /*getNameResidence permet d obtenir tout les labels des residences de la base de données*/
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewSelectResidenceToBuy.php';
@@ -109,7 +110,7 @@ class ControllerClient
     /*recuperation de la residence choisie et affichage du formulaire pour choisir les details de la transaction */
     public static function recuperationNameResidenceToBuy(){
         $user = "Béatrice";
-        $userId = 1001 ;
+        $userId = $_SESSION['id'] ;
             $residenceName = $_GET['residence'];
             $residencePrice = ModelResidence::getResidencePrice($residenceName) ;
             $ownerId = ModelResidence::getResidenceOwner( $residenceName);
@@ -126,7 +127,7 @@ class ControllerClient
 }
 
     public static function transactionBuyResidence(){
-        $userId = 1001 ;
+        $userId = $_SESSION['id'] ;
         $buyerAccount = $_GET['compteBuyer']; /*compte choisit pour le transfert*/
         $ownerAccount = $_GET['ownerAccount']; /*compte choisit pour le transfert*/
         $residencePrice = $_GET['residencePrice']; /*prix de la res*/
@@ -140,7 +141,7 @@ class ControllerClient
     }
 
     public static function patrimoine(){
-        $userId = 1001 ; 
+        $userId = $_SESSION['id'] ; 
         /*recupere le montant de chaque compte et le nom de chaque compte */ 
         $liste_compte_montant = ModelResidence::getMontantNomCompte($userId);
         /*recuperer ses residences et leur montant*/
@@ -154,6 +155,7 @@ class ControllerClient
 
     public static function ResidenceREDIRECTED()
     {
+        $database = Model::getInstance();
         $user = "Béatrice";
         include 'config.php';
         $vue = $root . '/app/view/Clients/viewResidenceDIRECTED.php';
@@ -163,6 +165,7 @@ class ControllerClient
 
     public static function CompteREDIRECTED()
     {
+        $database = Model::getInstance();
         $user = $_GET['user'];
         $label = $_GET['label'];
         $solde = $_GET['solde'];

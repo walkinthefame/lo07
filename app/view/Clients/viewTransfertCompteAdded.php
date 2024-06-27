@@ -9,7 +9,7 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
       include $root . '/app/view/fragment/fragmentPatrimoineMenu.php';
       include $root . '/app/view/fragment/fragmentPatrimoineJumbotron.html';
       ?>
-  <h3><?php echo "Formulaire de transfert d'argent pour $user" ?></h3> 
+  <h3><?php echo "Formulaire de transfert d'argent" ?></h3> 
   <br>
   <?php
     echo "<form role=\"form\" method='POST' action='router2.php?action=TransfertCompteDone'>

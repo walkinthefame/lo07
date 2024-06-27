@@ -1,5 +1,4 @@
 <!-- ----- début viewAll -->
- <?php session_start();?>
 <?php
 require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
 ?>
