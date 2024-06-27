@@ -1,6 +1,23 @@
 <nav class="navbar navbar-expand-lg bg-success fixed-top">
   <div class="container-fluid">
-  <a class="navbar-brand" href="router2.php?action=BanqueAccueil"> HAOUAS Lena / SEFFAR Youssef</a>
+  <a class="navbar-brand" href="router2.php?action=BanqueAccueil">HAOUAS - SEFFAR | <?php 
+  if(isset($_SESSION['type'])){
+  if($_SESSION['type']==0){
+    echo "administrateur";
+  }
+  else if($_SESSION['type']==1){
+    echo "client";
+  }
+  }
+  else{
+    echo "VISITEUR";
+  }
+  echo " | ";
+  if(isset($prenom) && isset($nom)){
+    echo $prenom." ".$nom;
+    }
+  echo " | ";
+  ?></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
