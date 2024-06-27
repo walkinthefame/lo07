@@ -19,21 +19,6 @@ class ControllerLogin
         $user = $_POST['user'];
         $password = $_POST['password'];
         $result = ModelLogin::CheckUser($user, $password);
-        if ($result == 0)
-        {
-            $_SESSION['user'] = $user;
-            $_SESSION['type'] = 0;
-
-        }
-        else if ($result == 1)
-        {
-            $_SESSION['user'] = $user;
-            $_SESSION['type'] = 1;
-        }
-        else
-        {
-            $_SESSION['type'] = -1;
-        }
         include 'config.php';
         $vue = $root . '/app/view/Login/viewConnected.php';
         require ($vue);
@@ -42,6 +27,8 @@ class ControllerLogin
 
     public static function Deconnexion()
     {
+       $_SESSION['login'] = 'vide';     
+       include 'config.php';
        session_destroy();
        header('Location: router2.php?action=truc');
        exit();

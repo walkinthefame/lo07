@@ -1,14 +1,15 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
+require_once('../model/ModelPersonne.php');
+/*if (session_status() == PHP_SESSION_NONE) {
     session_start();
-}
-$status = isset($_SESSION['user']);
-if ($status) {
+}*/
+if (isset($_SESSION['login'])) {
+    $id = ModelPersonne::getIDByUser($_SESSION['login']);
     $userModel = new ModelPersonne();
-    $user = $userModel->getPersonneByID($_SESSION['id'] ?? null);
-    $prenom = $user ? $user->getPrenom() : null;
-    $nom = $user ? $user->getNom() : null;
-    $statut = $user ? $user->getStatut() : null;
+    $user = $userModel->getPersonneByID($id);
+    $prenom = isset($user['prenom']) ? $user['prenom'] : null;
+    $nom = isset($user['nom']) ? $user['nom'] : null;
+    $statut = isset($user['statut']) ? $user['statut'] : null;
 
     switch ($statut) {
         case ModelPersonne::ADMINISTRATEUR:
@@ -22,6 +23,7 @@ if ($status) {
             break;
     }
 } else {
-    require('login_signup.php');
+    require('fragmentMenuVisiteur.php');
 }
+
 ?>

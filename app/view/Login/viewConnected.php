@@ -14,7 +14,7 @@ require ($root . '/app/view/fragment/fragmentPatrimoineHeader.html');
       {
             echo "<h3>Vous êtes connecté en tant qu'administrateur</h3>";
         }
-        else if ($result ==1)
+        else if ($result == 1)
         {
             echo "<h3>Vous êtes connecté en tant qu'utilisateur</h3>";
         }

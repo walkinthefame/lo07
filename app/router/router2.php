@@ -45,7 +45,7 @@ switch($action)
         break;
     case "Connexion" :
     case "Connected" :
-    case "Disconnect" :
+    case "Deconnexion" :
     case "SignUp" :
     case "SignedUp" :
     case "SignedUpREDIRECTED" :

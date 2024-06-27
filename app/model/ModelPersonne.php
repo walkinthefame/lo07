@@ -1,7 +1,7 @@
 <?php
 require_once('Model.php');
 require_once('ModelCompte.php');
-class ModelPersonne{
+class ModelPersonne {
 public const ADMINISTRATEUR =0;
 public const CLIENT =1;
 
@@ -179,12 +179,32 @@ public static function getPersonneByID($id)
         'id' => $id
     ]);
     $results = $statement -> fetchAll(PDO::FETCH_CLASS, "ModelPersonne");
+    return $results;
+    }
+    catch (PDOException $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        return NULL;
+}
+}
+
+public static function getIDByUser($user)
+{
+    try{
+    $database = Model::getInstance();
+    $query = "SELECT id FROM personne where login = :user";
+    $statement = $database->prepare($query);
+    $statement->execute([
+        'user' => $user
+    ]);
+    $results = $statement -> fetchAll(PDO::FETCH_COLUMN, 0);
     return $results[0];
     }
     catch (PDOException $e) {
         printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
         return NULL;
 }
+
+
 }
 }
 ?>

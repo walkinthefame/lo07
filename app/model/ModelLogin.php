@@ -13,19 +13,21 @@ class ModelLogin
                 'user' => $user,
                 'password' => $password
             ]);
+            $_SESSION['login'] = $user;
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
             if(count($results)>0)
             {
                 if ($results[0]["statut"]==0)
                 {
+                    $_SESSION['type'] = 0;
                     return 0;
                     // 0 admin  
                 }
                 else if ($results[0]["statut"]==1)
                 {
+                    $_SESSION['type'] = 1;
                     return 1;
-                    //1 client
-                
+                    //1 client              
                 }
             }
             else{
