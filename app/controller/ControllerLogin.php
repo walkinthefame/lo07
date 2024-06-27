@@ -61,6 +61,19 @@ class ControllerLogin
         require($vue);
     }
 
+    public static function AmeliorationMVC()
+    {
+        include 'config.php';
+        $vue = $root . '/app/view/ameliorations/MVC.php';
+        require($vue);
+    }
+    public static function fonctionnalite()
+    {
+        include 'config.php';
+        $vue = $root . '/app/view/ameliorations/fonctionnalite.php';
+        require($vue);
+    }
+
 
 }
 

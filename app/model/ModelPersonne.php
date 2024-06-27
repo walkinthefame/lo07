@@ -178,7 +178,7 @@ public static function getPersonneByID($id)
     $statement->execute([
         'id' => $id
     ]);
-    $results = $statement -> fetchAll(PDO::FETCH_CLASS, "ModelPersonne");
+    $results = $statement -> fetchAll(PDO::FETCH_ASSOC);
     return $results;
     }
     catch (PDOException $e) {

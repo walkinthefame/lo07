@@ -1,3 +1,14 @@
+<?php
+if (isset($_SESSION['login'])) {
+  $id = ModelPersonne::getIDByUser($_SESSION['login']);
+  $userModel = new ModelPersonne();
+  $user = ModelPersonne::getPersonneByID($id);
+  $prenom = isset($user['prenom']) ? $user['prenom'] : null;
+  $nom = isset($user['nom']) ? $user['nom'] : null;
+  $statut = isset($user['statut']) ? $user['statut'] : null;
+}
+?>
+
 <nav class="navbar navbar-expand-lg bg-success fixed-top">
   <div class="container-fluid">
   <a class="navbar-brand" href="router2.php?action=BanqueAccueil">HAOUAS - SEFFAR | <?php 
@@ -10,7 +21,7 @@
   }
   }
   else{
-    echo "VISITEUR";
+    echo "visiteur";
   }
   echo " | ";
   if(isset($prenom) && isset($nom)){

@@ -49,6 +49,8 @@ switch($action)
     case "SignUp" :
     case "SignedUp" :
     case "SignedUpREDIRECTED" :
+    case "AmeliorationMVC" :
+    case "fonctionnalite" :
         ControllerLogin::$action($args);
         break;
     default :
